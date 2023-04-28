@@ -1,0 +1,64 @@
+*{
+    box-sizing: border-box;
+    padding: 0%;
+    margin: 0%;
+}
+
+body {
+    background: black;
+    height: 100%;
+}
+
+header {
+    text-align: center;
+    height: 7vh;
+    border: 1px red solid;
+    width: 100%;
+}
+h1{
+    color: white;
+}
+
+main{
+    display:flex;
+    height: 93vh;
+    border: 1px red solid;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    
+}
+
+.projects {
+    display: flex;
+    flex-direction: column;
+    height: 95%;
+    border: 1px blue solid;
+     width: 25%;
+     text-align: center;
+     align-items: center;
+     gap: 30px;
+     
+}
+h2{
+    margin-top: 20px;
+    color: white;
+    font-size: 2.7em;
+}
+
+.lists{
+   height: 95%;
+    border: 2px green solid;
+    width: 70%;
+}
+
+.add-project{
+    width: 22px;
+    height: 22px;
+}
+
+.project-card {
+    border: 1px red solid;
+    height: 50px;
+    width: 100%;
+}

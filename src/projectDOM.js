@@ -1,8 +1,9 @@
+import { forEach } from "lodash";
+
 export function projectCreate() {
-  const project = document.querySelector(".projects");
-  const projectCard = document.createElement("div");
+  let projectCard = document.createElement("div");
   projectCard.classList.add("project-card");
+  let projectContainer = document.querySelector(".projects");
   let button = document.querySelector(".add-project");
-  project.insertBefore(projectCard, button);
- 
+  projectContainer.insertBefore(projectCard, button);
 }

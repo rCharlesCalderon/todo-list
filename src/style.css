@@ -62,3 +62,15 @@ h2{
     height: 50px;
     width: 100%;
 }
+
+.project-card-button {
+    width: 50%;
+    height: 100%;
+    background-color: green;
+}
+
+.list-button{
+    width: 30px;
+    height: 30px;
+    background-color: red;
+}

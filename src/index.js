@@ -11,35 +11,30 @@ let projectArray = [];
 
 
 let button = document.querySelector(".add-project");
-//when the user presses the button create a project card and push it into the array
+//MAKE A PROJECT
 button.addEventListener("click", () => {
-  let projectContainer = document.querySelector(".projects");
-  let projectCard = document.createElement("div");
-  projectCard.classList.add("project-card");
-  projectContainer.appendChild(projectCard);
-  projectArray.push(projectObject(projectCard));
-  projectArray.forEach((card) => {
-    projectCard.setAttribute("data-id", projectArray.indexOf(card));
-  });
-
-  //add button in projectCard
-  let projectCardButton = document.createElement("button");
-  projectCardButton.classList.add("project-card-button");
-  projectCardButton.textContent = "add project";
-
-  projectCard.appendChild(projectCardButton);
-
+  const projectTitleContainer = document.createElement("div");
+  projectTitleContainer.classList.add("project-container");
+  document.body.appendChild(projectTitleContainer);
+  const projectH1 = document.createElement("h1");
+  projectH1.textContent = "Title";
+  projectTitleContainer.appendChild(projectH1);
+  const projectTitle = document.createElement("input");
+  projectTitle.classList.add("project-title");
+  projectTitleContainer.appendChild(projectTitle);
+  const saveProject = document.createElement("button");
+  saveProject.classList.add("save-button");
+  projectTitleContainer.appendChild(saveProject);
   //
-
-  //
-  //when the user presses the button bring up a form and tie it to its playerCard object
-  projectCardButton.addEventListener("click", () => {
-    const list = document.querySelector(".lists");
-    let listButton = document.createElement("button");
-    listButton.classList.add("list-button");
-    listButton.textContent = "Add List";
-    list.appendChild(listButton);
+  saveProject.addEventListener("click", () => {
+    //create title object
+    projectArray.push(projectObject(projectTitle.value))
+    clear(projectTitleContainer)
+    console.log(projectArray)
   });
-
-  console.log(projectArray);
 });
+
+
+function clear(projectTitleContainer) {
+  document.body.removeChild(projectTitleContainer)
+}

@@ -82,3 +82,9 @@ h2{
     height: 30px;
     width: 40px;
 }
+
+.project-card {
+    height: 50px;
+    width: 100px;
+    border: 1px green solid;
+}

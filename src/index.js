@@ -2,15 +2,18 @@ import _ from "lodash";
 import "./style.css";
 import { todo } from "./todo";
 import { projectCreate } from "./projectDOM";
+
+
+
 //turn individual player card into its own object
 const projectObject = (project) => {
   return { project };
 };
 //project array
 let projectArray = [];
-
-
 let button = document.querySelector(".add-project");
+
+
 //MAKE A PROJECT
 button.addEventListener("click", () => {
   const projectTitleContainer = document.createElement("div");
@@ -26,15 +29,37 @@ button.addEventListener("click", () => {
   saveProject.classList.add("save-button");
   projectTitleContainer.appendChild(saveProject);
   //
+
+  //when the user presses the save button do this
   saveProject.addEventListener("click", () => {
     //create title object
-    projectArray.push(projectObject(projectTitle.value))
-    clear(projectTitleContainer)
-    console.log(projectArray)
+    projectArray.push(projectObject(projectTitle.value));
+    clearProjectCards()
+    addProjectCard();
+    clear(projectTitleContainer);
+    console.log(projectArray);
   });
 });
 
+//display each project object and put it in the projects
+function addProjectCard() {
+  projectArray.forEach((proj) => {
+    const projects = document.querySelector(".projects");
+    const projectCard = document.createElement("div");
+    
+    projectCard.classList.add("project-card");
+    projectCard.setAttribute("data-id", projectArray.indexOf(proj));
+    projects.appendChild(projectCard);
+  });
+}
 
+//clear object
 function clear(projectTitleContainer) {
-  document.body.removeChild(projectTitleContainer)
+  document.body.removeChild(projectTitleContainer);
+}
+//stop cards from duplicating 
+function clearProjectCards(){
+const project = document.querySelector(".projects")
+const projectCard = document.querySelector('.project-cards')
+project.removeChild(projectCard)
 }

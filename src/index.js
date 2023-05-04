@@ -34,10 +34,11 @@ button.addEventListener("click", () => {
   saveProject.addEventListener("click", () => {
     //create title object
     projectArray.push(projectObject(projectTitle.value));
-    clearProjectCards()
-    addProjectCard();
+    let test = projectArray.findIndex((title) => title.project);
+    loadTodo(test);
     clear(projectTitleContainer);
-    console.log(projectArray);
+    clearProjectCards();
+    addProjectCard();
   });
 });
 
@@ -46,7 +47,7 @@ function addProjectCard() {
   projectArray.forEach((proj) => {
     const projects = document.querySelector(".projects");
     const projectCard = document.createElement("div");
-    
+
     projectCard.classList.add("project-card");
     projectCard.setAttribute("data-id", projectArray.indexOf(proj));
     projects.appendChild(projectCard);
@@ -57,9 +58,18 @@ function addProjectCard() {
 function clear(projectTitleContainer) {
   document.body.removeChild(projectTitleContainer);
 }
-//stop cards from duplicating 
-function clearProjectCards(){
-const project = document.querySelector(".projects")
-const projectCard = document.querySelector('.project-cards')
-project.removeChild(projectCard)
+//stop cards from duplicating
+function clearProjectCards() {
+  const projectCards = document.querySelectorAll(".project-card");
+  const project = document.querySelector(".projects");
+  if (projectCards !== null && projectCards !== undefined) {
+    projectCards.forEach((card) => {
+      project.removeChild(card);
+    });
+  }
+}
+
+function loadTodo(t) {
+  console.log(t);
+  console.log(projectArray);
 }

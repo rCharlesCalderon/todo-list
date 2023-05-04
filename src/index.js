@@ -11,11 +11,10 @@ const projectObject = (project) => {
 };
 //project array
 let projectArray = [];
-let button = document.querySelector(".add-project");
-
+let addProject = document.querySelector(".add-project");
 
 //MAKE A PROJECT
-button.addEventListener("click", () => {
+addProject.addEventListener("click", () => {
   const projectTitleContainer = document.createElement("div");
   projectTitleContainer.classList.add("project-container");
   document.body.appendChild(projectTitleContainer);
@@ -29,47 +28,6 @@ button.addEventListener("click", () => {
   saveProject.classList.add("save-button");
   projectTitleContainer.appendChild(saveProject);
   //
-
-  //when the user presses the save button do this
-  saveProject.addEventListener("click", () => {
-    //create title object
-    projectArray.push(projectObject(projectTitle.value));
-    let test = projectArray.findIndex((title) => title.project);
-    loadTodo(test);
-    clear(projectTitleContainer);
-    clearProjectCards();
-    addProjectCard();
-  });
 });
 
-//display each project object and put it in the projects
-function addProjectCard() {
-  projectArray.forEach((proj) => {
-    const projects = document.querySelector(".projects");
-    const projectCard = document.createElement("div");
 
-    projectCard.classList.add("project-card");
-    projectCard.setAttribute("data-id", projectArray.indexOf(proj));
-    projects.appendChild(projectCard);
-  });
-}
-
-//clear object
-function clear(projectTitleContainer) {
-  document.body.removeChild(projectTitleContainer);
-}
-//stop cards from duplicating
-function clearProjectCards() {
-  const projectCards = document.querySelectorAll(".project-card");
-  const project = document.querySelector(".projects");
-  if (projectCards !== null && projectCards !== undefined) {
-    projectCards.forEach((card) => {
-      project.removeChild(card);
-    });
-  }
-}
-
-function loadTodo(t) {
-  console.log(t);
-  console.log(projectArray);
-}

@@ -2,6 +2,7 @@
     box-sizing: border-box;
     padding: 0%;
     margin: 0%;
+    color: white;
 }
 
 body {
@@ -50,6 +51,10 @@ h2{
    height: 95%;
     border: 2px green solid;
     width: 70%;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    
 }
 
 .add-project{
@@ -89,4 +94,11 @@ h2{
     height: 50px;
     width: 100px;
     border: 1px green solid;
+}
+
+.list-button{
+    height: 30px;
+    width: 120px;
+    border: 1px red solid;
+    
 }

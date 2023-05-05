@@ -35,6 +35,6 @@ function clearTitleForm() {
 
 function addProject(project) {
   project.addEventListener("click", () => {
-    console.log("worked");
+    console.log(project);
   });
 }

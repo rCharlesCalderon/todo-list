@@ -30,11 +30,12 @@ export function createTitleForm() {
 function clearTitleForm() {
   const projectTitleContainer = document.querySelector(".project-container");
   document.body.removeChild(projectTitleContainer);
-  console.log(projectArray);
+
 }
 
 function addProject(project) {
-  project.addEventListener("click", () => {
-    console.log(project);
-  });
+ Object.assign(project, projectArray[0]);
+ console.log(projectArray);
+
+ project.addEventListener("click", () => {});
 }

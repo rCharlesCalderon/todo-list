@@ -1,7 +1,7 @@
-export const todo = (title, description, dueDate, priority) => {
-  return { title, description, dueDate, priority };
+export const todo = (title, description) => {
+  return { title, description };
 };
 
-export const projectObject = (projectName) => {
-  return { projectName };
+export const projectObject = (projectName, ...todoTasks) => {
+  return { projectName, todoTasks };
 };

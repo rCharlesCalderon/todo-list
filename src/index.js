@@ -1,4 +1,4 @@
-import _ from "lodash";
+import _, { create } from "lodash";
 import "./style.css";
 import { todo } from "./objects";
 import { projectCreate } from "./projectDOM";
@@ -15,5 +15,3 @@ addProject.addEventListener("click", () => {
 
   //
 });
-
-

@@ -52,7 +52,7 @@ h2{
     border: 2px green solid;
     width: 70%;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     gap: 20px;
     
 }
@@ -101,4 +101,26 @@ h2{
     width: 120px;
     border: 1px red solid;
     
+}
+
+.todo-button{
+    width: 60px;
+    height: 30px;
+}
+
+.todo-container{
+    border: 2px red solid;
+    position: absolute;
+    top: 30%;
+    left: 40%;
+    height: 300px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+}
+
+.save-todo{
+    height: 50px;
+    width: 50px;
+    border: 2px green solid;
 }

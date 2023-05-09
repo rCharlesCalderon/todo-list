@@ -17,7 +17,6 @@ export function createTitleForm() {
   projectTitleContainer.appendChild(saveProject);
 
   saveProject.addEventListener("click", () => {
-    projectArray.push(projectObject(projectTitle.value));
     //clears title form
     clearTitleForm();
     //simply adds a project card to project nothing else
@@ -41,6 +40,7 @@ function loadTodo(projectTitle) {
   todoContainer.appendChild(todoButton);
   todoButton.addEventListener("click", () => {
     //STEP ONE
+
     createTodoForm();
   });
 }
@@ -57,12 +57,9 @@ function createTodoForm() {
   let saveTodo = document.createElement("button");
   saveTodo.classList.add("save-todo");
   todoFormContainer.appendChild(saveTodo);
-
-  saveTodo.addEventListener("click", () => {
-    //figure out how to get THIS object
-
-    console.log(projectArray);
-  });
+  //WHAT TO DOOOOO
+  //PASS THE CARD AS AN OBJECT?????
+  saveTodo.addEventListener("click", () => {});
 }
 
 function clearTitleForm() {
@@ -72,18 +69,12 @@ function clearTitleForm() {
 
 function addProjectCard(projectTitle) {
   const projectCard = document.createElement("div");
-
+  projectCard.setAttribute("data-id", `${projectTitle.value}`);
   const projectContainer = document.querySelector(".projects");
   projectCard.textContent = projectTitle.value;
   projectCard.classList.add("project-card");
   projectContainer.appendChild(projectCard);
-
+  projectArray.push(projectObject(projectCard));
   projectCard.addEventListener("click", () => {});
 }
 
-function addProject(projectCard) {
-  console.log(projectArray);
-  console.log(projectCard);
-
-  project.addEventListener("click", () => {});
-}

@@ -2,6 +2,8 @@ import { projectArray } from ".";
 import { todo } from "./objects";
 import { projectObject } from "./objects";
 
+let id = 1;
+
 export function createTitleForm() {
   const projectTitleContainer = document.createElement("div");
   projectTitleContainer.classList.add("project-container");
@@ -69,12 +71,17 @@ function clearTitleForm() {
 
 function addProjectCard(projectTitle) {
   const projectCard = document.createElement("div");
-  projectCard.setAttribute("data-id", `${projectTitle.value}`);
   const projectContainer = document.querySelector(".projects");
+
+  projectCard.setAttribute("title", projectTitle.value);
   projectCard.textContent = projectTitle.value;
   projectCard.classList.add("project-card");
   projectContainer.appendChild(projectCard);
-  projectArray.push(projectObject(projectCard));
+
+  projectArray.push(projectObject(this.projectObject, projectTitle.value));
+
+  id++;
+  console.log(id);
+
   projectCard.addEventListener("click", () => {});
 }
-

@@ -1,8 +1,7 @@
+import { indexOf } from "lodash";
 import { projectArray } from ".";
 import { todo } from "./objects";
 import { projectObject } from "./objects";
-
-let id = 1;
 
 export function createTitleForm() {
   const projectTitleContainer = document.createElement("div");
@@ -69,6 +68,8 @@ function clearTitleForm() {
   document.body.removeChild(projectTitleContainer);
 }
 
+//REDO MAYBE?
+// LOOK THROUGH THE ARRAY AND MAKE A CARD USING THAT???????????
 function addProjectCard(projectTitle) {
   const projectCard = document.createElement("div");
   const projectContainer = document.querySelector(".projects");
@@ -78,10 +79,12 @@ function addProjectCard(projectTitle) {
   projectCard.classList.add("project-card");
   projectContainer.appendChild(projectCard);
 
-  projectArray.push(projectObject(this.projectObject, projectTitle.value));
+  projectArray.push(
+    projectObject(crypto.randomUUID(), projectCard.textContent)
+  );
+  console.log(projectArray);
 
-  id++;
-  console.log(id);
-
-  projectCard.addEventListener("click", () => {});
+  projectCard.addEventListener("click", () => {
+    console.log(projectCard.id);
+  });
 }

@@ -23,8 +23,6 @@ export function createTitleForm() {
     clearTitleForm();
     //simply adds a project card to project nothing else
     addProjectCard(projectTitle);
-
-  
   });
 }
 //CREATES TODO FORM WHEN SOMEONE CLICKS BUTTON/RIGHT SIDE PAGE BUTTON
@@ -64,27 +62,26 @@ function test(projectCard) {
 
 //ADDS PROJECTS TO DOM/LEFT SIDE PAGE CARDS
 function addProjectCard(projectTitle) {
-  const projectCard = document.createElement("div");
+  let projectCard = projectObject(crypto.randomUUID(), projectTitle.value);
   const projectContainer = document.querySelector(".projects");
+  projectArray.push(projectCard);
 
-  projectCard.setAttribute("title", projectTitle.value);
-  projectCard.textContent = projectTitle.value;
-  projectCard.classList.add("project-card");
-  projectContainer.appendChild(projectCard);
-  loadTodo(projectTitle.value,projectObject(crypto.randomUUID(), projectCard.textContent));
-
-  projectCard.addEventListener("click", () => {
-    //CANT FIGURE IT OUT
-    //NEED TO LOOK FOR CARD
+  projectArray.forEach((cards) => {
+    let card = document.createElement("div");
+    card.classList.add("project-card");
+    card.textContent = cards.projectName;
+    projectContainer.appendChild(card);
+    card.addEventListener("click", () => {
+      console.log(cards);
+    });
   });
+
+  loadTodo(projectTitle.value, projectCard);
 }
-
-
 
 //CREATES TODO DOM/RIGHT SIDE PAGE
 function loadTodo(projectTitle, projectCard) {
   //PUSH OBJECT INTO ARRAY FINALLY
-  projectArray.push(projectCard);
 
   let todoContainer = document.querySelector(".lists");
   todoContainer.innerHTML = "";
@@ -99,7 +96,6 @@ function loadTodo(projectTitle, projectCard) {
     createTodoForm(projectCard);
   });
 }
-
 
 //CLEARS CONTAINER
 function clearContainer() {

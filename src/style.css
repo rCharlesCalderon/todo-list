@@ -6,6 +6,10 @@
     font-family:main;
     src: url("/src/fonts/Prompt-Regular.ttf");
 }
+@font-face {
+    font-family: project;
+    src: url("/src/fonts/NotoSerif-Regular.ttf");
+}
 *{
     box-sizing: border-box;
     padding: 0%;
@@ -32,6 +36,7 @@ h1{
     font-size: 2.8em;
     color: white;
     font-family: todo;
+    letter-spacing: 3px;
 }
 
 header img {
@@ -43,12 +48,17 @@ header img {
 main{
     border: 2px green solid;
     height: 89%;
+    display: flex;
 }
 
 .project-container{
     height: 100%;
-    width: 25%;
+    width: 100%;
+    border-right: 1px black solid;
+    display: flex;
+    flex-direction: column;
 
+   
 }
 
 .project-nav{
@@ -59,8 +69,9 @@ main{
     align-items: center;
 }
 h2{
-    font-family: main;
+    font-family: todo;
     margin-top: 7px;
+    letter-spacing: 3px;
 }
 
 hr{
@@ -114,40 +125,197 @@ hr{
 }
 
 .nav-button span {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: project;
      font-size: 1.3em;
      margin-left: 3px;
      font-weight: 530;
 }
 
 .inbox{
-    filter: invert(18%) sepia(85%) saturate(7395%) hue-rotate(341deg) brightness(97%) contrast(104%);
+   
 }
 
 .today {
-    filter: invert(44%) sepia(87%) saturate(3520%) hue-rotate(184deg) brightness(105%) contrast(102%);
+   
 }
 
 .upcoming {
-    filter: invert(100%) sepia(100%) saturate(7500%) hue-rotate(358deg) brightness(99%) contrast(101%);
+
 }
 
 .completed {
-    filter: invert(92%) sepia(17%) saturate(7043%) hue-rotate(41deg) brightness(96%) contrast(112%);
+   
 }
     .important {
-        filter: invert(41%) sepia(98%) saturate(6370%) hue-rotate(3deg) brightness(101%) contrast(106%);
+
     }
 
     .title-form-container {
         height: 277px;
         width: 355px;
-        border:2px blue solid;
+       border: 1px black solid;
        position: absolute;
        top: 34%;
        left: 41%;
        border-radius: 14px;
        display: flex;
        flex-direction: column;
+       gap: 5px;
+      box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
     }
+
+    .blur {
+        filter: blur(5px);
+    }
+
+    .exit-button {
+        color: red;
+        font-family: todo;
+        align-self: flex-end;
+        font-size: 27px;
+        margin-right: 10px;
+    }
+
+    .project-title {
+        margin-top: 10px;
+        font-size: 2.5em;
+        align-self: center;
+        margin-top: 6px;
+    }
+
+    .project-form-input {
+        border: 1px black solid;
+        height: 30px;
+        border-radius: 10px;
+        width: 90%;
+        align-self: center;
+    }
+
+    .save-button {
+       background: lightcoral;
+        height: 35px;
+        border-radius: 4px;
+        width: 50%;
+        align-self: center;
+        font-size: 1.5em;
+        font-family: main;
+        text-align: center;
+        margin-top: 10px;
+        
+    }
+
+   
+
+    .right-section {
+        display: flex;
+        height: 100%;
+    }
+
+    .left-side {
+        height: 100%;
+        width: 25%;
+    }
+
+    .right-side {
+        width: 85%;
+        height: 100%;
+        flex-direction: column;
+    }
+
+    .todo-container {
+        display: flex;
+        width: 100%;
+        border: 2px black solid;
+        height: 100%;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .todo-header {
+        border: 1px black solid;
+        height: 45px;
+        text-align: center;
+          font-size: 1.9em;
+        color: black;
+        font-family: main;
+        width: 100%;
+    }
+   
+    .project-card {
+        border:1px green solid;
+        width: 80%;
+        height: 40px;
+        text-align: center;
+    }
+
+    .add-task {
+        font-size: 1.2em;
+        width: 10%;
+        height: 30px;
+        background-color: grey;
+    }
+
+    .todo-form-container {
+        display: flex;
+        flex-direction: column;
+        height: 320px;
+        width: 355px;
+        border: 1px black solid;
+       position: absolute;
+       top: 34%;
+       left: 41%;
+        border-radius: 14px;
+        box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+        gap: 5px;
+        align-items: center;
+    }
+
+    
+
+    .todoform-text{
+        text-align: center;
+        font-size: 1.6em;
+        font-family: project;
+    }
+
+    .todo-form-input{
+        border-radius: 5px;
+        height: 30px;
+        width: 80%;
+    }
+
+    .todo-date {
+        height: 40px;
+        width: 30%;
+      
+    }
+
+    .todo-label-container{
+       width: 100%;
+        border: 1px black solid;
+    }
+
+
+    .priority-img {
+        height: 40px;
+    }
+
+
+    .radio-checkbox {
+        background-image: url("../src/images/flag.png");
+        height: 40px;
+    }
+
+   .todo-label-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   }
+
+   .radio-img1 {
+
+   }
+
+ 
 

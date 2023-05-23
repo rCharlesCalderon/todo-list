@@ -1,3 +1,5 @@
+export let listOfProjects = [];
+
 export const todo = (title, description) => {
   return { title, description };
 };

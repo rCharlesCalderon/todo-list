@@ -19,6 +19,7 @@
 
 body {
     height: 100vh;
+   
 }
 
 header{
@@ -28,7 +29,8 @@ header{
     align-items: center;
     justify-content: center;
     gap: 5px;
-    background-color: lightcoral;
+background: rgb(131,58,180);
+background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
 
 }
 h1{
@@ -90,6 +92,8 @@ hr{
     width: 97%;
     border-radius: 10px;
     margin-top: 3px;
+  background-color: lightcoral;
+    
 }
 .create-project span{
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -259,7 +263,7 @@ hr{
     .todo-form-container {
         display: flex;
         flex-direction: column;
-        height: 320px;
+        height: 385px;
         width: 355px;
         border: 1px black solid;
        position: absolute;
@@ -293,7 +297,7 @@ hr{
 
     .todo-label-container{
        width: 100%;
-        border: 1px black solid;
+       
     }
 
 
@@ -309,12 +313,26 @@ hr{
 
    .todo-label-container{
     display: flex;
-    justify-content: center;
-    align-items: center;
+   
+  
    }
 
-   .radio-img1 {
+   .High {
+    filter: invert(13%) sepia(96%) saturate(6576%) hue-rotate(24deg) brightness(77%) contrast(126%);
+   }
 
+   .Medium {
+    filter: invert(79%) sepia(47%) saturate(4997%) hue-rotate(357deg) brightness(101%) contrast(109%);
+   }
+
+   .Low {
+    filter: invert(69%) sepia(57%) saturate(687%) hue-rotate(3deg) brightness(107%) contrast(111%);
+   }
+
+   .save-todo {
+    height: 30px;
+    border: 1px green solid;
+    width: 100px;
    }
 
  

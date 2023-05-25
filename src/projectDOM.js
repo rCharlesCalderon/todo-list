@@ -2,6 +2,7 @@ import { head } from "lodash";
 import { listOfProjects } from "./objects";
 import { projectObject } from "./objects";
 import { datalistOption } from "./objects";
+import { todo } from "./objects";
 
 export function createProjectForm() {
   let titleFormContainer = document.createElement("div");
@@ -48,11 +49,11 @@ function todoDOM(project) {
   todoContainer.appendChild(addTaskButton);
   addTaskButton.textContent = "Add task+";
   addTaskButton.addEventListener("click", () => {
-    todoForm();
+    todoForm(project);
   });
 }
 
-function todoForm() {
+function todoForm(projectObject) {
   let todoFormContainer = document.createElement("div");
   todoFormContainer.classList.add("todo-form-container");
   document.body.appendChild(todoFormContainer);
@@ -82,31 +83,63 @@ function todoForm() {
   let date = document.createElement("span");
   date.className = "todoform-text";
   date.textContent = "Date";
-  todoDate.type = "date";
-  todoDate.className = "todo-date";
-  //Priority
-  //
-  let todoLabelContainer = document.createElement("div");
-  todoLabelContainer.className = "todo-label-container";
-  let todoLabel = document.createElement("label");
-  //
-
-  for (let i = 0; i < 3; i++) {
-    let todoRadioBox = document.createElement("input");
-    todoRadioBox.type = "radio";
-    todoRadioBox.checked;
-    let img = document.createElement("img");
-    img.src = "../src/images/flag.png";
-    img.classList.add("radio-checkbox", `radio-img${i}`);
-    todoLabel.appendChild(todoRadioBox);
-    todoLabel.appendChild(img);
-    todoLabelContainer.appendChild(todoLabel);
-  }
-
   todoFormContainer.appendChild(date);
+  todoDate.type = "date";
+  todoDate.classList.add("todo-date");
   todoFormContainer.appendChild(todoDate);
+  //Priority
+
+  priority();
+  //Save button
+  todoTaskSave();
+
+  ///
+}
+function todoTaskSave() {
+  let todoFormContainer = document.querySelector(".todo-form-container");
+  let priorityInput = document.querySelector('input[name="radio"]:checked');
+  let todoDate = document.querySelector(".todo-date");
+
+  let button = document.createElement("button");
+  todoFormContainer.appendChild(button);
+  button.classList.add("save-todo");
+
+  button.addEventListener("click", () => {
+    console.log(priorityInput.value);
+  });
+}
+function priority() {
+  let todoFormContainer = document.querySelector(".todo-form-container");
+  let priorityTitle = document.createElement("span");
+  priorityTitle.textContent = "Priority";
+  priorityTitle.className = "todoform-text";
+  todoFormContainer.appendChild(priorityTitle);
+  let todoLabelContainer = document.createElement("label");
+  todoLabelContainer.className = "todo-label-container";
+  //
+  let priorityHigh = document.createElement("input");
+  priorityHigh.type = "radio";
+  priorityHigh.value = "High";
+  priorityHigh.name = "radio";
+  //
+  let priorityMedium = document.createElement("input");
+  priorityMedium.type = "radio";
+  priorityMedium.value = "Medium";
+  priorityMedium.name = "radio";
+  //
+  let priorityLow = document.createElement("input");
+  priorityLow.type = "radio";
+  priorityLow.value = "Low";
+  priorityLow.name = "radio";
+
+  todoLabelContainer.appendChild(priorityHigh);
+  todoLabelContainer.appendChild(priorityMedium);
+  todoLabelContainer.appendChild(priorityLow);
   todoFormContainer.appendChild(todoLabelContainer);
 }
+
+
+
 
 function todoHeader(project) {
   let titleInput = document.querySelector(".project-form-input");

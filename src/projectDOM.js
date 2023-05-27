@@ -1,4 +1,4 @@
-import { head } from "lodash";
+import { forEach, head } from "lodash";
 import { listOfProjects } from "./objects";
 import { projectObject } from "./objects";
 import { datalistOption } from "./objects";
@@ -25,6 +25,7 @@ export function createProjectForm() {
   saveButton.textContent = "Save";
   blurPage();
   exitButtonClick();
+  //SAVE BUTTON
   createTodo();
 }
 
@@ -37,18 +38,21 @@ function createTodo() {
     blurPage();
     todoHeader(project);
     removeForm();
-    createProjectCard();
+    createProjectCard(titleInput.value);
     todoDOM(project);
   });
 }
 
 function todoDOM(project) {
-  let todoContainer = document.querySelector(".todo-container");
+  let todoContainer = document.querySelector(".todo-body");
+  todoContainer.innerHTML = "";
   let addTaskButton = document.createElement("button");
+  todoContainer.appendChild(addTaskButton);
   addTaskButton.classList.add("add-task");
   todoContainer.appendChild(addTaskButton);
-  addTaskButton.textContent = "Add task+";
+  addTaskButton.textContent = "+";
   addTaskButton.addEventListener("click", () => {
+    blurPage();
     todoForm(project);
   });
 }
@@ -58,56 +62,59 @@ function todoForm(projectObject) {
   todoFormContainer.classList.add("todo-form-container");
   document.body.appendChild(todoFormContainer);
   //TODO NAME
-  let todoTaskName = document.createElement("input");
-  todoTaskName.className = "todo-form-input";
-  let taskName = document.createElement("span");
-  taskName.className = "todoform-text";
-  taskName.textContent = "Task name";
-  todoFormContainer.appendChild(taskName);
-  todoTaskName.placeholder = "Task name";
-  todoTaskName.classList.add("todo-name");
-  todoFormContainer.appendChild(todoTaskName);
+  todoName();
   //DESCRIPTION
-  let todoTaskDesc = document.createElement("input");
-  todoTaskDesc.className = "todo-form-input";
-  let todoDesc = document.createElement("span");
-  todoDesc.className = "todoform-text";
-  todoDesc.textContent = "Description";
-  todoFormContainer.appendChild(todoDesc);
-  todoTaskDesc.placeholder = "Description";
-  todoTaskDesc.classList.add("todo-description");
-  todoFormContainer.appendChild(todoTaskDesc);
+  todoDescription();
   //DATE
-  let todoDate = document.createElement("input");
-  todoDate.className = "todo-form-input";
-  let date = document.createElement("span");
-  date.className = "todoform-text";
-  date.textContent = "Date";
-  todoFormContainer.appendChild(date);
-  todoDate.type = "date";
-  todoDate.classList.add("todo-date");
-  todoFormContainer.appendChild(todoDate);
+  todoDate();
   //Priority
-
   priority();
   //Save button
-  todoTaskSave();
-
+  todoTaskSave(projectObject);
   ///
 }
-function todoTaskSave() {
+function todoTaskSave(project) {
   let todoFormContainer = document.querySelector(".todo-form-container");
-  let priorityInput = document.querySelector('input[name="radio"]:checked');
-  let todoDate = document.querySelector(".todo-date");
-
   let button = document.createElement("button");
-  todoFormContainer.appendChild(button);
   button.classList.add("save-todo");
 
   button.addEventListener("click", () => {
-    console.log(priorityInput.value);
+    removeBlur();
+    let todoName = document.querySelector(".todo-name").value;
+    let todoDescription = document.querySelector(".todo-description").value;
+    let todoDate = document.querySelector(".todo-date").value;
+    let priorityInput = document.querySelector(
+      'input[name="radio"]:checked'
+    ).value;
+    let todoObject = todo(todoName, todoDescription, todoDate, priorityInput);
+    project.todoTasks.push(todoObject);
+    document.body.removeChild(document.querySelector(".todo-form-container"));
+    console.log(listOfProjects);
+    //CREATE A FUNCTION THAT WILL DISPLAY THE CARDS WITHIN THE OBJECT
+    displayTodoTasks(project);
+  });
+  todoFormContainer.appendChild(button);
+}
+function displayTodoTasks(project) {
+  stoptaskDup();
+  let todoBody = document.querySelector(".todo-body");
+  project.todoTasks.forEach((task) => {
+    let cardContainer = document.createElement("div");
+    cardContainer.classList.add("task-card");
+    let checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    let taskTitle = document.createElement("p");
+    taskTitle.textContent = task.title;
+    let taskDate = document.createElement("p");
+    taskDate.textContent = task.date;
+    taskDate.classList.add("task-date");
+    cardContainer.appendChild(checkbox);
+    cardContainer.appendChild(taskTitle);
+    cardContainer.appendChild(taskDate);
+    todoBody.appendChild(cardContainer);
   });
 }
+
 function priority() {
   let todoFormContainer = document.querySelector(".todo-form-container");
   let priorityTitle = document.createElement("span");
@@ -131,6 +138,8 @@ function priority() {
   priorityLow.type = "radio";
   priorityLow.value = "Low";
   priorityLow.name = "radio";
+  priorityLow.checked = true;
+  //
 
   todoLabelContainer.appendChild(priorityHigh);
   todoLabelContainer.appendChild(priorityMedium);
@@ -138,8 +147,44 @@ function priority() {
   todoFormContainer.appendChild(todoLabelContainer);
 }
 
+function todoDate() {
+  let todoFormContainer = document.querySelector(".todo-form-container");
+  let todoDate = document.createElement("input");
+  todoDate.className = "todo-form-input";
+  let date = document.createElement("span");
+  date.className = "todoform-text";
+  date.textContent = "Date";
+  todoFormContainer.appendChild(date);
+  todoDate.type = "date";
+  todoDate.classList.add("todo-date");
+  todoFormContainer.appendChild(todoDate);
+}
 
+function todoDescription() {
+  let todoFormContainer = document.querySelector(".todo-form-container");
+  let todoTaskDesc = document.createElement("input");
+  todoTaskDesc.className = "todo-form-input";
+  let todoDesc = document.createElement("span");
+  todoDesc.className = "todoform-text";
+  todoDesc.textContent = "Description";
+  todoFormContainer.appendChild(todoDesc);
+  todoTaskDesc.placeholder = "Description";
+  todoTaskDesc.classList.add("todo-description");
+  todoFormContainer.appendChild(todoTaskDesc);
+}
 
+function todoName() {
+  let todoFormContainer = document.querySelector(".todo-form-container");
+  let todoTaskName = document.createElement("input");
+  todoTaskName.className = "todo-form-input";
+  let taskName = document.createElement("span");
+  taskName.className = "todoform-text";
+  taskName.textContent = "Task name";
+  todoFormContainer.appendChild(taskName);
+  todoTaskName.placeholder = "Task name";
+  todoTaskName.classList.add("todo-name");
+  todoFormContainer.appendChild(todoTaskName);
+}
 
 function todoHeader(project) {
   let titleInput = document.querySelector(".project-form-input");
@@ -154,13 +199,29 @@ function createProjectCard() {
   let projectContainer = document.querySelector(".projects");
   stopCardDup();
   listOfProjects.forEach((project) => {
+    let projectCardImg = document.createElement("img");
+    projectCardImg.src = ".images/calendar-check.png";
     let projectCard = document.createElement("div");
+    projectCard.appendChild(projectCardImg);
     projectCard.classList.add("project-card");
+    projectCard.textContent = project.projectName;
+
     projectContainer.appendChild(projectCard);
     projectCard.addEventListener("click", () => {
-      console.log(project);
+      todoDOM(project);
+      todoHeader(project);
+      displayTodoTasks(project);
     });
   });
+}
+function stoptaskDup() {
+  let projectCard = document.querySelectorAll(".task-card");
+  let projectContainer = document.querySelector(".todo-body");
+  if (projectCard !== null && projectCard !== undefined) {
+    projectCard.forEach((card) => {
+      projectContainer.removeChild(card);
+    });
+  }
 }
 
 function stopCardDup() {
@@ -192,4 +253,9 @@ function removeForm() {
   let titleInput = document.querySelector(".project-form-input");
   let projectForm = document.querySelector(".title-form-container");
   document.body.removeChild(projectForm);
+}
+
+function removeBlur() {
+  let main = document.querySelector("main");
+  main.classList.remove("blur");
 }

@@ -245,14 +245,18 @@ hr{
    
     .project-card {
         display: flex;
-        border:1px white solid;
-        border-style: dashed;
+        border:2px white solid;
         border-radius: 10px;
         width: 80%;
         height: 40px;
         text-align: center;
         font-size: 1.2em;
-        gap: 12px;
+        gap: 9px;
+        align-items: center;
+    }
+    .project-card.span {
+        font-family: todo;
+        
     }
 
     .add-task {
@@ -353,15 +357,33 @@ hr{
     min-width: 400px;
     min-height: 40px;
     border: 2px black solid;
-    gap: 10px;
-    font-family: main;
+    gap: 9px;
+    font-family: todo;
     align-items: center;
     border-radius: 10px;
    }
 
    .task-date {
-    font-family: main;
+    font-family: todo;
      margin-left: auto;
-    font-size: 0.8em;
+    font-size: 1.1em;
+    
    }
    
+   
+   .bullet-img {
+    width: 22px;
+    height: 22px;
+   margin-left: 2px;
+   }
+
+   .important {
+    height: 22px;
+    width: 22px;
+    margin-bottom: 2px;
+   }
+   .yellow-star {
+    filter: invert(80%) sepia(73%) saturate(2027%) hue-rotate(351deg) brightness(104%) contrast(98%);
+    
+   }
+ 

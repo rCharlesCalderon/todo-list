@@ -1,8 +1,11 @@
-import { forEach, head } from "lodash";
+import { forEach, head, indexOf } from "lodash";
 import { listOfProjects } from "./objects";
 import { projectObject } from "./objects";
 import { datalistOption } from "./objects";
 import { todo } from "./objects";
+import bullet from "./images/bullet-list.png";
+import important from "./images/important.png";
+import { importantTaskArray } from "./objects";
 
 export function createProjectForm() {
   let titleFormContainer = document.createElement("div");
@@ -98,20 +101,61 @@ function todoTaskSave(project) {
 function displayTodoTasks(project) {
   stoptaskDup();
   let todoBody = document.querySelector(".todo-body");
+
   project.todoTasks.forEach((task) => {
     let cardContainer = document.createElement("div");
     cardContainer.classList.add("task-card");
+    let starImg = new Image();
+    starImg.src = important;
+    starImg.classList.add("important");
     let checkbox = document.createElement("input");
     checkbox.type = "checkbox";
+    checkbox.name = "remove";
     let taskTitle = document.createElement("p");
     taskTitle.textContent = task.title;
     let taskDate = document.createElement("p");
     taskDate.textContent = task.date;
     taskDate.classList.add("task-date");
+
     cardContainer.appendChild(checkbox);
+    cardContainer.appendChild(starImg);
     cardContainer.appendChild(taskTitle);
     cardContainer.appendChild(taskDate);
     todoBody.appendChild(cardContainer);
+    importantTasks(task, starImg);
+    checkboxRemove(cardContainer, project, task, checkbox);
+  });
+}
+
+function importantTasks(task, starImg) {
+  starImg.addEventListener("click", () => {
+    starImg.classList.add("yellow-star");
+    if (starImg.classList.contains("yellow-star")) {
+      task.important = true;
+      importantTaskArray.push(task);
+    } else {
+      task.important = false;
+    }
+  });
+}
+export function loadImportantTask() {
+  let importantNav = document.querySelector(".important-nav");
+
+  importantNav.addEventListener("click", () => {
+    let test = importantTaskArray.filter((x) => x.important === true);
+    console.log(test);
+  });
+}
+
+function checkboxRemove(cardContainer, projectObject, task, checkbox) {
+  let todoBody = document.querySelector(".todo-body");
+  checkbox.addEventListener("click", () => {
+    if (checkbox.checked) {
+      projectObject.todoTasks.splice(indexOf(task), 1);
+
+      todoBody.removeChild(cardContainer);
+      console.log(listOfProjects);
+    }
   });
 }
 
@@ -198,19 +242,24 @@ function todoHeader(project) {
 function createProjectCard() {
   let projectContainer = document.querySelector(".projects");
   stopCardDup();
+
   listOfProjects.forEach((project) => {
-    let projectCardImg = document.createElement("img");
-    projectCardImg.src = ".images/calendar-check.png";
+    let img = new Image();
+    img.src = bullet;
+    img.classList.add("bullet-img");
     let projectCard = document.createElement("div");
-    projectCard.appendChild(projectCardImg);
+    projectCard.appendChild(img);
+    let projectTask = document.createElement("span");
+    projectTask.textContent = project.projectName;
+    projectCard.appendChild(projectTask);
     projectCard.classList.add("project-card");
-    projectCard.textContent = project.projectName;
 
     projectContainer.appendChild(projectCard);
     projectCard.addEventListener("click", () => {
       todoDOM(project);
       todoHeader(project);
       displayTodoTasks(project);
+      console.log(listOfProjects);
     });
   });
 }

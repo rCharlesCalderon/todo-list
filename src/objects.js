@@ -1,7 +1,8 @@
 export let listOfProjects = [];
+export let importantTaskArray = [];
 
-export const todo = (title, description, date, priority) => {
-  return { title, description, date, priority };
+export const todo = (title, description, date, priority, important) => {
+  return { title, description, date, priority, important };
 };
 
 export const projectObject = (id, projectName, ...todoTasks) => {

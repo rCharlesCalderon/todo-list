@@ -2,6 +2,7 @@ export let listOfProjects = [];
 export let importantTaskArray = [];
 
 export const todo = (title, description, date, priority, important) => {
+  important = false;
   return { title, description, date, priority, important };
 };
 

@@ -91,6 +91,7 @@ function todoTaskSave(project) {
     ).value;
     let todoObject = todo(todoName, todoDescription, todoDate, priorityInput);
     project.todoTasks.push(todoObject);
+    //HERE
     document.body.removeChild(document.querySelector(".todo-form-container"));
     console.log(listOfProjects);
     //CREATE A FUNCTION THAT WILL DISPLAY THE CARDS WITHIN THE OBJECT
@@ -130,7 +131,11 @@ function displayTodoTasks(project) {
 function importantTasks(task, starImg) {
   starImg.addEventListener("click", () => {
     starImg.classList.toggle("yellow-star");
-    if (starImg.classList.contains("yellow-star")) {
+
+    if (
+      starImg.classList.contains("yellow-star") &&
+      !importantTaskArray.includes(task)
+    ) {
       task.important = true;
       importantTaskArray.push(task);
     } else {
@@ -146,7 +151,7 @@ export function loadImportantTask() {
     console.log(test);
   });
 }
-
+loadImportantTask();
 function checkboxRemove(cardContainer, projectObject, task, checkbox) {
   let todoBody = document.querySelector(".todo-body");
   checkbox.addEventListener("click", () => {
@@ -266,6 +271,7 @@ function createProjectCard() {
 function stoptaskDup() {
   let projectCard = document.querySelectorAll(".task-card");
   let projectContainer = document.querySelector(".todo-body");
+  let importantStar = document.querySelector(".important");
   if (projectCard !== null && projectCard !== undefined) {
     projectCard.forEach((card) => {
       projectContainer.removeChild(card);

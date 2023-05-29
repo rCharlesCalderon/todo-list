@@ -131,11 +131,7 @@ function displayTodoTasks(project) {
 function importantTasks(task, starImg) {
   starImg.addEventListener("click", () => {
     starImg.classList.toggle("yellow-star");
-
-    if (
-      starImg.classList.contains("yellow-star") &&
-      !importantTaskArray.includes(task)
-    ) {
+    if (starImg.classList.contains("yellow-star")) {
       task.important = true;
       importantTaskArray.push(task);
     } else {

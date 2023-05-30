@@ -95,11 +95,24 @@ function todoTaskSave(project) {
     document.body.removeChild(document.querySelector(".todo-form-container"));
     console.log(listOfProjects);
     //CREATE A FUNCTION THAT WILL DISPLAY THE CARDS WITHIN THE OBJECT
-    //stoptaskDup();
+    stoptaskDup();
     displayTodoTasks(project);
   });
   todoFormContainer.appendChild(button);
 }
+function stoptaskDup() {
+  let projectCard = document.querySelectorAll(".task-card");
+  let projectContainer = document.querySelector(".todo-body");
+  let starImg = document.querySelector(".important");
+  let importantStar = document.querySelector(".important");
+  if (projectCard !== null && projectCard !== undefined) {
+    projectCard.forEach((card) => {
+      projectContainer.removeChild(card);
+    });
+  }
+}
+
+
 function displayTodoTasks(project) {
   let todoBody = document.querySelector(".todo-body");
 
@@ -268,17 +281,7 @@ function createProjectCard() {
     });
   });
 }
-function stoptaskDup() {
-  let projectCard = document.querySelectorAll(".task-card");
-  let projectContainer = document.querySelector(".todo-body");
-  let starImg = document.querySelector(".important");
-  let importantStar = document.querySelector(".important");
-  if (projectCard !== null && projectCard !== undefined) {
-    projectCard.forEach((card) => {
-      projectContainer.removeChild(card);
-    });
-  }
-}
+
 
 function stopCardDup() {
   let projectCard = document.querySelectorAll(".project-card");

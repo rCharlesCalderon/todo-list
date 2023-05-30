@@ -95,7 +95,7 @@ function todoTaskSave(project) {
     document.body.removeChild(document.querySelector(".todo-form-container"));
     console.log(listOfProjects);
     //CREATE A FUNCTION THAT WILL DISPLAY THE CARDS WITHIN THE OBJECT
-    stoptaskDup();
+    //stoptaskDup();
     displayTodoTasks(project);
   });
   todoFormContainer.appendChild(button);

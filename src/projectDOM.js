@@ -4,7 +4,7 @@ import { projectObject } from "./objects";
 import { datalistOption } from "./objects";
 import { todo } from "./objects";
 import bullet from "./images/bullet-list.png";
-import important from "./images/important.png";
+import star from "./images/important.png";
 import { importantTaskArray } from "./objects";
 
 export function createProjectForm() {
@@ -95,19 +95,19 @@ function todoTaskSave(project) {
     document.body.removeChild(document.querySelector(".todo-form-container"));
     console.log(listOfProjects);
     //CREATE A FUNCTION THAT WILL DISPLAY THE CARDS WITHIN THE OBJECT
+    stoptaskDup();
     displayTodoTasks(project);
   });
   todoFormContainer.appendChild(button);
 }
 function displayTodoTasks(project) {
-  stoptaskDup();
   let todoBody = document.querySelector(".todo-body");
 
   project.todoTasks.forEach((task) => {
     let cardContainer = document.createElement("div");
     cardContainer.classList.add("task-card");
     let starImg = new Image();
-    starImg.src = important;
+    starImg.src = star;
     starImg.classList.add("important");
     let checkbox = document.createElement("input");
     checkbox.type = "checkbox";
@@ -131,9 +131,12 @@ function displayTodoTasks(project) {
 function importantTasks(task, starImg) {
   starImg.addEventListener("click", () => {
     starImg.classList.toggle("yellow-star");
-    if (starImg.classList.contains("yellow-star")) {
-      task.important = true;
+    if (
+      starImg.classList.contains("yellow-star") &&
+      !importantTaskArray.includes(task.important)
+    ) {
       importantTaskArray.push(task);
+      task.important = true;
     } else {
       task.important = false;
     }
@@ -143,10 +146,11 @@ export function loadImportantTask() {
   let importantNav = document.querySelector(".important-nav");
 
   importantNav.addEventListener("click", () => {
-    let test = importantTaskArray.filter((x) => x.important === true);
-    console.log(test);
+    importantTaskArray = importantTaskArray.filter((x) => x.important === true);
+    console.log(importantTaskArray);
   });
 }
+
 loadImportantTask();
 function checkboxRemove(cardContainer, projectObject, task, checkbox) {
   let todoBody = document.querySelector(".todo-body");
@@ -267,6 +271,7 @@ function createProjectCard() {
 function stoptaskDup() {
   let projectCard = document.querySelectorAll(".task-card");
   let projectContainer = document.querySelector(".todo-body");
+  let starImg = document.querySelector(".important");
   let importantStar = document.querySelector(".important");
   if (projectCard !== null && projectCard !== undefined) {
     projectCard.forEach((card) => {

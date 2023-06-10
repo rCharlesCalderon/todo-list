@@ -1,5 +1,23 @@
 export let listOfProjects = [];
+
 export let importantTaskArray = [];
+export let dueTodayArray = [];
+
+
+
+export function storage() {
+
+}
+
+ 
+ window.addEventListener("load", () => {
+  localStorage.clear()
+  console.log(localStorage)
+  console.log(listOfProjects)
+ });
+ 
+
+//loadTodayInfo() displayTodoTasks(project) createTaskCards(task)  createTaskCards(task)
 
 export const todo = (title, description, date, priority, important) => {
   important = false;

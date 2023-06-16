@@ -2,13 +2,15 @@ import { listOfProjects } from "./objects";
 import { projectObject } from "./objects";
 import { datalistOption } from "./objects";
 import { todo } from "./objects";
-import bullet from "./images/bullet-list.png";
+import trash from "./images/trash-can.png";
 import star from "./images/star.png";
 import info from "./images/information.png";
 import edit from "./images/edit.png";
+import flag from "./images/flag.png";
 import { dueTodayArray } from "./objects";
 import { importantTaskArray } from "./objects";
 import { storage } from "./objects";
+import { indexOf } from "lodash";
 
 export function createProjectForm() {
   let titleFormContainer = document.createElement("div");
@@ -41,14 +43,12 @@ function createTodo() {
   saveButton.addEventListener("click", () => {
     let project = projectObject(crypto.randomUUID(), titleInput.value);
     listOfProjects.push(project);
-
-    storage();
-
     blurPage();
     todoHeader(project);
     removeForm();
-    createProjectCard(titleInput.value);
+    createProjectCard();
     todoDOM(project);
+    storage();
   });
 }
 
@@ -85,6 +85,7 @@ function todoForm(projectObject) {
 function todoTaskSave(project) {
   let todoFormContainer = document.querySelector(".todo-form-container");
   let button = document.createElement("button");
+  button.textContent = "Save"
   button.classList.add("save-todo");
 
   button.addEventListener("click", () => {
@@ -103,6 +104,7 @@ function todoTaskSave(project) {
     //CREATE A FUNCTION THAT WILL DISPLAY THE CARDS WITHIN THE OBJECT
     stoptaskDup();
     displayTodoTasks(project);
+    storage();
   });
   todoFormContainer.appendChild(button);
 }
@@ -178,6 +180,7 @@ function editTasks(task, starImg, project) {
     let todoFormContainer = document.createElement("div");
     todoFormContainer.classList.add("todo-form-container");
     document.body.appendChild(todoFormContainer);
+    blurPage();
     createEditTaskName(task);
     createEditTaskDescription(task);
     createEditTaskDate(task);
@@ -208,8 +211,8 @@ function saveEditTask(task, project) {
     document.body.removeChild(todoFormContainer);
     stoptaskDup();
     displayTodoTasks(project);
-    console.log(taskPriority);
-    console.log(listOfProjects);
+    removeBlur();
+    storage();
   });
   todoFormContainer.appendChild(saveButton);
 }
@@ -226,16 +229,25 @@ function createEditTaskPriority(task) {
   priorityHigh.type = "radio";
   priorityHigh.value = "High";
   priorityHigh.name = "radio";
+  let flagHigh = new Image();
+  flagHigh.src = flag;
+  flagHigh.classList.add("priority-high");
   //
   let priorityMedium = document.createElement("input");
   priorityMedium.type = "radio";
   priorityMedium.value = "Medium";
   priorityMedium.name = "radio";
+  let flagMed = new Image();
+  flagMed.src = flag;
+  flagMed.classList.add("priority-medium");
   //
   let priorityLow = document.createElement("input");
   priorityLow.type = "radio";
   priorityLow.value = "Low";
   priorityLow.name = "radio";
+  let flagLow = new Image();
+  flagLow.src = flag;
+  flagLow.classList.add("priority-low");
   //
   if (task.priority === "Low") {
     priorityLow.checked = true;
@@ -245,8 +257,11 @@ function createEditTaskPriority(task) {
     priorityHigh.checked = true;
   }
   todoLabelContainer.appendChild(priorityHigh);
+  todoLabelContainer.appendChild(flagHigh);
   todoLabelContainer.appendChild(priorityMedium);
+  todoLabelContainer.appendChild(flagMed);
   todoLabelContainer.appendChild(priorityLow);
+  todoLabelContainer.appendChild(flagLow);
   todoFormContainer.appendChild(todoLabelContainer);
 }
 function createEditTaskDate(task) {
@@ -279,6 +294,7 @@ function createEditTaskName(task) {
   let todoTaskName = document.createElement("input");
   todoTaskName.className = "todo-form-input";
   let taskName = document.createElement("span");
+  taskName.textContent = "Name";
   taskName.className = "todoform-text";
   todoFormContainer.appendChild(taskName);
   todoTaskName.value = task.title;
@@ -288,31 +304,35 @@ function createEditTaskName(task) {
 function importantTasks(task, starImg) {
   starImg.addEventListener("click", () => {
     starImg.classList.toggle("yellow-star");
-    if (
-      starImg.classList.contains("yellow-star") &&
-      !importantTaskArray.includes(task.important)
-    ) {
-      importantTaskArray.push(task);
+    if (starImg.classList.contains("yellow-star")) {
       task.important = true;
+      storage();
     } else {
       task.important = false;
+      starImg.classList.remove("yellow-star");
+      storage();
     }
   });
   if (task.important === true) {
     starImg.classList.add("yellow-star");
   }
 }
+
 export function loadImportantTask() {
   let importantNav = document.querySelector(".important-nav");
 
   importantNav.addEventListener("click", () => {
-    importantTaskArray = importantTaskArray.filter((x) => x.important === true);
     let todoBody = document.querySelector(".todo-body");
     let todoHeader = document.querySelector(".todo-header");
     todoHeader.textContent = "Important";
     todoBody.innerHTML = "";
-    importantTaskArray.forEach((task) => {
-      createTaskCards(task);
+    listOfProjects.forEach((obj) => {
+      obj.todoTasks.forEach((task) => {
+        if (task.important === true) {
+          createTaskCards(task);
+          storage();
+        }
+      });
     });
   });
 }
@@ -347,14 +367,13 @@ function createTaskCards(task) {
   taskDate.textContent = task.date;
   taskDate.classList.add("task-date");
   importantTask.appendChild(taskDate);
-
   todoBody.appendChild(importantTask);
-
   starImg.addEventListener("click", () => {
     starImg.classList.remove("yellow-star");
     task.important = false;
     todoBody.removeChild(importantTask);
     importantTaskArray.splice(indexOf(task), 1);
+    storage();
   });
 }
 
@@ -366,6 +385,7 @@ function checkboxRemove(cardContainer, projectObject, task, checkbox) {
       importantTaskArray.splice(indexOf(task), 1);
 
       todoBody.removeChild(cardContainer);
+      storage();
       console.log(listOfProjects);
     }
   });
@@ -384,22 +404,34 @@ function priority() {
   priorityHigh.type = "radio";
   priorityHigh.value = "High";
   priorityHigh.name = "radio";
+  let flagHigh = new Image();
+  flagHigh.src = flag;
+  flagHigh.classList.add("priority-high");
   //
   let priorityMedium = document.createElement("input");
   priorityMedium.type = "radio";
   priorityMedium.value = "Medium";
   priorityMedium.name = "radio";
+  let flagMed = new Image();
+  flagMed.src = flag;
+  flagMed.classList.add("priority-medium");
   //
   let priorityLow = document.createElement("input");
   priorityLow.type = "radio";
   priorityLow.value = "Low";
   priorityLow.name = "radio";
   priorityLow.checked = true;
+  let flaglow = new Image();
+  flaglow.src = flag;
+  flaglow.classList.add("priority-low");
   //
 
   todoLabelContainer.appendChild(priorityHigh);
+  todoLabelContainer.appendChild(flagHigh);
   todoLabelContainer.appendChild(priorityMedium);
+  todoLabelContainer.appendChild(flagMed);
   todoLabelContainer.appendChild(priorityLow);
+  todoLabelContainer.appendChild(flaglow);
   todoFormContainer.appendChild(todoLabelContainer);
 }
 
@@ -451,27 +483,37 @@ function todoHeader(project) {
   headerContainer.appendChild(headerTitle);
 }
 
-function createProjectCard() {
+export function createProjectCard() {
   let projectContainer = document.querySelector(".projects");
   stopCardDup();
 
   listOfProjects.forEach((project) => {
-    let img = new Image();
-    img.src = bullet;
-    img.classList.add("bullet-img");
+    let projectCardContainer = document.createElement("div");
+    projectCardContainer.classList.add("project-card");
+    let trashImg = new Image();
+    trashImg.src = trash;
+    trashImg.classList.add("trash-img");
     let projectCard = document.createElement("div");
-    projectCard.appendChild(img);
+    projectCard.classList.add("project-card-click");
+    projectCardContainer.appendChild(trashImg);
+    projectCardContainer.appendChild(projectCard);
+
     let projectTask = document.createElement("span");
     projectTask.textContent = project.projectName;
     projectCard.appendChild(projectTask);
-    projectCard.classList.add("project-card");
 
-    projectContainer.appendChild(projectCard);
+    projectContainer.appendChild(projectCardContainer);
     projectCard.addEventListener("click", () => {
       todoDOM(project);
       todoHeader(project);
       displayTodoTasks(project);
-      console.log(listOfProjects);
+    });
+
+    trashImg.addEventListener("click", () => {
+      listOfProjects.splice(indexOf(project), 1);
+
+      projectContainer.removeChild(projectCardContainer);
+      storage();
     });
   });
 }
@@ -524,12 +566,16 @@ export function loadInbox() {
     listOfProjects.forEach((obj) => {
       displayTodoTasks(obj);
     });
-    console.log("wdada");
   });
 }
 
 export function dueTodayInfo() {
-  let todayButton = document.querySelector(".today");
+  let header = document.querySelector(".todo-header");
+  header.innerHTML = "";
+  let headerTitle = document.createElement("p");
+  headerTitle.textContent = "Today";
+  header.appendChild(headerTitle);
+
   let currentDate = new Date().toJSON().slice(0, 10);
 
   listOfProjects.forEach((project) => {
@@ -543,7 +589,7 @@ export function dueTodayInfo() {
 
 export function loadTodayInfo() {
   stoptaskDup();
-  listOfProjects.forEach((obj) => {
-    displayTodoTasks(obj);
+  dueTodayArray.forEach((obj) => {
+    createTaskCards(obj);
   });
 }

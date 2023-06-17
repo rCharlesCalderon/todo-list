@@ -98,10 +98,7 @@ function todoTaskSave(project) {
     ).value;
     let todoObject = todo(todoName, todoDescription, todoDate, priorityInput);
     project.todoTasks.push(todoObject);
-    //HERE
     document.body.removeChild(document.querySelector(".todo-form-container"));
-    console.log(listOfProjects);
-    //CREATE A FUNCTION THAT WILL DISPLAY THE CARDS WITHIN THE OBJECT
     stoptaskDup();
     displayTodoTasks(project);
     storage();

@@ -484,7 +484,7 @@ export function createProjectCard() {
   let projectContainer = document.querySelector(".projects");
   stopCardDup();
 
-  listOfProjects.forEach((project) => {
+  listOfProjects.forEach((project, i) => {
     let projectCardContainer = document.createElement("div");
     projectCardContainer.classList.add("project-card");
     let trashImg = new Image();
@@ -508,9 +508,8 @@ export function createProjectCard() {
 
     trashImg.addEventListener("click", () => {
       closeList(project);
-      listOfProjects.splice(indexOf(project), 1);
-
       projectContainer.removeChild(projectCardContainer);
+      listOfProjects.splice(i, 1);
       storage();
     });
   });

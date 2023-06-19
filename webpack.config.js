@@ -20,6 +20,21 @@ module.exports = {
         test: /\.(woff|woff2|eot|ttf|otf)$/i,
         type: "asset/resource",
       },
+      {
+        rules: [
+          {
+            test: /\.html$/,
+            use: [
+              {
+                loader: "html-loader",
+                options: {
+                  minimize: true,
+                },
+              },
+            ],
+          },
+        ],
+      },
     ],
   },
 };

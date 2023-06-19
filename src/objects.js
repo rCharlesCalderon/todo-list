@@ -2,7 +2,7 @@ export let listOfProjects = [];
 export let importantTaskArray = [];
 export let dueTodayArray = [];
 
-import { createProjectCard, createProjectForm } from "./projectDOM";
+import { createProjectCard } from "./projectDOM";
 
 export function storage() {
   let projectObj_serialized = JSON.stringify(listOfProjects);
@@ -29,12 +29,10 @@ window.addEventListener("load", () => {
       importantTaskArray.push(element);
     });
 
-    document.querySelector(".inbox").click();
     createProjectCard();
   }
 });
 
-//loadTodayInfo() displayTodoTasks(project) createTaskCards(task)  createTaskCards(task)
 
 export const todo = (title, description, date, priority, important) => {
   important = false;

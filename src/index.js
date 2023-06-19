@@ -1,5 +1,6 @@
 import _, { create } from "lodash";
 import "./style.css";
+import html from "..dist/index.hmtl";
 import { createProjectForm } from "./projectDOM";
 import { loadImportantTask } from "./projectDOM";
 import { loadInbox } from "./projectDOM";

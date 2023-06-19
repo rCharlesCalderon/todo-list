@@ -2,13 +2,12 @@ import { listOfProjects } from "./objects";
 import { projectObject } from "./objects";
 import { datalistOption } from "./objects";
 import { todo } from "./objects";
+import { importantTaskArray } from "./objects";
 import trash from "./images/trash-can.png";
 import star from "./images/star.png";
-import info from "./images/information.png";
 import edit from "./images/edit.png";
 import flag from "./images/flag.png";
 import { dueTodayArray } from "./objects";
-import { importantTaskArray } from "./objects";
 import { storage } from "./objects";
 import { indexOf } from "lodash";
 
@@ -60,6 +59,7 @@ function todoDOM(project) {
   addTaskButton.classList.add("add-task");
   todoContainer.appendChild(addTaskButton);
   addTaskButton.textContent = "+";
+
   addTaskButton.addEventListener("click", () => {
     blurPage();
     todoForm(project);
@@ -85,7 +85,7 @@ function todoForm(projectObject) {
 function todoTaskSave(project) {
   let todoFormContainer = document.querySelector(".todo-form-container");
   let button = document.createElement("button");
-  button.textContent = "Save"
+  button.textContent = "Save";
   button.classList.add("save-todo");
 
   button.addEventListener("click", () => {
@@ -507,12 +507,22 @@ export function createProjectCard() {
     });
 
     trashImg.addEventListener("click", () => {
+      closeList(project);
       listOfProjects.splice(indexOf(project), 1);
 
       projectContainer.removeChild(projectCardContainer);
       storage();
     });
   });
+}
+
+function closeList(project) {
+  let todoHeader = document.querySelector(".todo-header p");
+  let todoContainer = document.querySelector(".todo-body");
+  if (todoHeader.textContent === project.projectName) {
+    todoHeader.innerHTML = "";
+    todoContainer.innerHTML = "";
+  }
 }
 
 function stopCardDup() {

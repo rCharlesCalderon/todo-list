@@ -44,7 +44,7 @@ header img {
 }
 
 main{
-    border: 2px green solid;
+    border: 1px black solid;
     height: 89%;
     display: flex;
 }
@@ -233,7 +233,6 @@ hr{
     }
 
     .todo-header {
-        border-bottom: 0.5px white solid;
        
         height: 45px;
         text-align: center;
@@ -457,6 +456,14 @@ hr{
    .low{
    border-color: green;
     font-family: todo;
+   }
+
+   footer {
+    display: flex;
+    justify-content: center;
+    font-family: todo;
+    align-items: center;
+    font-size: 1.7em;
    }
 
   

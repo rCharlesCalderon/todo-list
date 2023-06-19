@@ -1,5 +1,4 @@
 export let listOfProjects = [];
-
 export let importantTaskArray = [];
 export let dueTodayArray = [];
 
@@ -13,7 +12,6 @@ export function storage() {
 }
 
 window.addEventListener("load", () => {
-  localStorage.clear();
   document.querySelector(".inbox").click();
   if (localStorage.length !== 0) {
     let projectObj_deserialized = JSON.parse(
@@ -35,7 +33,6 @@ window.addEventListener("load", () => {
     createProjectCard();
   }
 });
- 
 
 //loadTodayInfo() displayTodoTasks(project) createTaskCards(task)  createTaskCards(task)
 

@@ -22,15 +22,38 @@ module.exports = {
       },
     ],
   },
-};
-
-module.exports = {
   module: {
     rules: [
       {
         test: /\.html$/i,
         loader: "html-loader",
+        options: {
+          sources: {
+            list: [
+              "...",
+              {
+                tag: "img",
+                attribute: "data-src",
+                type: "src",
+              },
+              {
+                tag: "img",
+                attribute: "data-srcset",
+                type: "srcset",
+              },
+            ],
+            urlFilter: (attribute, value, resourcePath) => {
+              if (/example\.pdf$/.test(value)) {
+                return false;
+              }
+
+              return true;
+            },
+          },
+        },
       },
     ],
   },
 };
+
+
